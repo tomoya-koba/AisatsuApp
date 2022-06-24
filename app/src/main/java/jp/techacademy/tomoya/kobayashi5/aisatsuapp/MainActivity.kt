@@ -3,16 +3,11 @@ package jp.techacademy.tomoya.kobayashi5.aisatsuapp
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity() : AppCompatActivity(), View.OnClickListener, Parcelable {
-
-    constructor(parcel: Parcel) : this() {
-    }
+class MainActivity: AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,22 +23,25 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, Parcelable {
         }
     }
 
+    private fun showTimePickerDialog() {
+        val timePickerDialog = TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+                Log.d("UI_PARTS", "$hour:$minute")
+            },
+            13, 0, true
+        )
 
-        fun showTimePickerDialog() {
-            val timePickerDialog = TimePickerDialog(
-                    this,
-                    TimePickerDialog.OnTimeSetListener { view, hour, minute ->
-                        Log.d("UI_PARTS", "$hour:$minute")
-                    },
-                    13, 0, true)
+            timePickerDialog.show()
 
-              if (hour >= 2 && minute >= 0) {
-                  textView.text = "おはよう"
-               } else if (hour >= 10 && minute >= 0) {
-                  textView.text = "こんにちは"
-               } else if (hour >= 18 && minute >= 0) {
-                  textView.text = "こんばんは"
-                }
+        if ( hour >= 2 && minute >= 0) {
+            textView.text = "おはよう"
+        } else if ( hour >= 10 && minute >= 0) {
+            textView.text = "こんにちは"
+        } else if ( hour >= 18 && minute >= 0) {
+            textView.text = "こんばんは"
         }
+    }
+}
 
 
